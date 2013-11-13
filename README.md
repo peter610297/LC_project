@@ -1,6 +1,7 @@
 Security Warning
 ================
-BY    peter610297  ,  Neal-liu  ,  chitsutote  ,  MxmoParis
+BY    peter610297  ,  Neal-liu  ,  chitsutote  ,  MxmoParis<br />
+[User Interface](http://drive.google.com/file/d/0BzM92SRjE_u2ZDBUOWR0Tk1EckU/edit?usp=sharing)
 
 Introduction 
 ============
@@ -13,10 +14,10 @@ Security Warning為一款手機APP，為了增加行徑路段時的安全性，�
 Motivation 
 ==========
 
-台灣總人口數雖然只有2300萬人，但是摩托車密度為世界第一，，想讓使用者在高車禍風險路段時能注意到    
+台灣總人口數雖然只有2300萬人，但是摩托車密度卻為世界第一，在加上台灣道路大多數為曲折狹窄，使得更容易發生車禍，許多巷弄也讓婦幼遭受侵害，為了讓使用者外出時能提升自身的安全，所以我們提出了這個構想   
     
 APP主要功能
-============
+===========
 
 * 以手機APP的方式呈現, 可以鎖定使用者目前所在位置,並以顏色區分該位置的危險指數<br />
   ( green->save yellow->care red->danger )
@@ -32,8 +33,6 @@ Patform
 
 	Android 系統
 	
-	
-<http://drive.google.com/file/d/0BzM92SRjE_u2ZDBUOWR0Tk1EckU/edit?usp=sharing>
 
 
 
