@@ -4,7 +4,8 @@ Security Warning
 * Introduction : 
 
 	Security Warning為一款手機APP，為了增加行徑路段時的安全性，當使用者行徑某些路段時，會顯示該使用者所在地的危險指數，危險指數會依據"歷年重大交通事故地點資料"和"易發生婦幼被害犯罪地點"做為判斷，高危險指數的地區會呈現紅色，低危險指數則會呈現綠色，點擊路段可顯示可能會遇到危險資訊
-
+    歷年重大交通事故地點資料: http://data.gov.tw/opendata/Details?sno=301000000A-00006
+	易發生婦幼被害犯罪地點:  http://data.gov.tw/opendata/Details?sno=301000000A-00010
 * Motivation :
 
     -1. 想讓使用者在高車禍風險路段時能注意到
@@ -26,7 +27,7 @@ Security Warning
 	Android 系統
 	
 	
-<a href="http://drive.google.com/file/d/0BzM92SRjE_u2ZDBUOWR0Tk1EckU/edit?usp=sharing">"for example"</a>
+<http://drive.google.com/file/d/0BzM92SRjE_u2ZDBUOWR0Tk1EckU/edit?usp=sharing>
 
 
 
