@@ -2,51 +2,64 @@ import java.io.File;
 import java.io.FileInputStream;  
 import java.io.FileReader;  
 import java.io.IOException;  
+import java.awt.List;
 import java.io.InputStreamReader;
 import com.csvreader.CsvReader; 
+import java.util.*;
 
-
-interface Dog
-{
-  public void speak ();
+abstract class Document {
+    private String title;
+    String getTitle() {
+        return title;
+    }
+    void setTitle(String title) {
+        this.title = title;
+    }
+    abstract void open();
+    abstract void save();
+    abstract void close();
 }
 
-class Poodle implements Dog
-{
-  public void speak()
-  {
-    System.out.println("The poodle says \"arf\"");
-  }
+abstract class Editor {
+    private List<Document> docs = new ArrayList<Document>();
+    
+    void open(String file) {
+        Document doc = createDocument();
+        doc.setTitle(file);
+        doc.open();
+        docs.add(doc);
+    }
+   
+    void save(Document doc) {
+        doc.save();
+    }
+    
+    void close(Document doc) {
+        doc.close();
+        docs.remove(doc);
+    }
+    
+    void close() {
+        for(Document doc : docs) {
+            close(doc);
+        }
+    }
+    abstract Document createDocument(); // Factory method
 }
-
-class Rottweiler implements Dog
-{
-  public void speak()
-  {
-    System.out.println("The Rottweiler says (in a very deep voice) \"WOOF!\"");
-  }
-}
-
-class SiberianHusky implements Dog
-{
-  public void speak()
-  {
-    System.out.println("The husky says \"Dude, what's up?\"");
-  }
-}
-class DogFactory
-{
-  public static Dog getDog(String criteria)
-  {
-    if ( criteria.equals("small") )
-      return new Poodle();
-    else if ( criteria.equals("big") )
-      return new Rottweiler();
-    else if ( criteria.equals("working") )
-      return new SiberianHusky();
-
-    return null;
-  }
+class TextEditor extends Editor {
+    Document createDocument() {
+        return new Document() {
+            void open() {
+                System.out.println("開啟文字檔案 " + this.getTitle());
+            }
+            void save() {
+                System.out.println("儲存文字檔案 " + this.getTitle());
+            }
+            void close() {
+                System.out.println("關閉文字檔案 " + this.getTitle());
+            }            
+        };
+    }
 }
 public class HW1 {
 
