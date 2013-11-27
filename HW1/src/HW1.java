@@ -1,46 +1,68 @@
-import java.io.File;  
+import java.io.File; 
+import java.io.InputStream;
 import java.io.FileInputStream;  
 import java.io.FileReader;  
 import java.io.IOException;  
-import java.awt.List;
 import java.io.InputStreamReader;
 import com.csvreader.CsvReader; 
 import java.util.*;
+import java.util.List;
 
 abstract class Document {
     private String title;
+    private CsvReader file;
     String getTitle() {
         return title;
     }
-    void setTitle(String title) {
+    CsvReader getreader(){
+    	return file;
+    }
+    void openDoc(String title) {
         this.title = title;
+        File csvfile=new File(title); 
+        try{
+        	InputStream ios=new FileInputStream(csvfile);
+        	byte[] b=new byte[3];  
+            ios.read(b);    
+            if(b[0]==-17&&b[1]==-69&&b[2]==-65)   
+            	this.file = new CsvReader(new InputStreamReader(new FileInputStream(csvfile),"UTF-8"));
+            else
+            	this.file = new CsvReader(new InputStreamReader(new FileInputStream(csvfile),"UTF-8"));
+            ios.close();
+        }catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     abstract void open();
-    abstract void save();
+    abstract void read();
     abstract void close();
 }
 
 abstract class Editor {
     private List<Document> docs = new ArrayList<Document>();
-    
     void open(String file) {
         Document doc = createDocument();
-        doc.setTitle(file);
+        doc.openDoc(file);
         doc.open();
         docs.add(doc);
     }
    
-    void save(Document doc) {
-        doc.save();
+    void read(Document doc) {
+        doc.read();
     }
-    
+    void read() {
+        for(Document doc : docs) {
+            read(doc);
+        }
+    }
     void close(Document doc) {
         doc.close();
-        docs.remove(doc);
     }
     
     void close() {
-        for(Document doc : docs) {
+    	Document doc;
+        for(int i = 0; i < docs.size(); i++) {
+        	doc = docs.get(i);
             close(doc);
         }
     }
@@ -50,46 +72,44 @@ class TextEditor extends Editor {
     Document createDocument() {
         return new Document() {
             void open() {
-                System.out.println("開啟文字檔案 " + this.getTitle());
+                System.out.println("開啟CSV檔 " + this.getTitle());
             }
-            void save() {
-                System.out.println("儲存文字檔案 " + this.getTitle());
+            void read() {
+            	System.out.println("讀取CSV檔 " + this.getTitle());
+            	CsvReader readfile = this.getreader();
+            	try {     			
+        			readfile.readHeaders();
+        			
+        			while (readfile.readRecord())
+        			{
+        				System.out.println("Current Record: " + readfile.getCurrentRecord());    
+        			    System.out.print("Values: ");  
+                        for (String s : readfile.getValues()) {  
+                            System.out.print(" [" + s +"] ");  
+                        }  
+                        System.out.println();
+        			}
+        			
+        		}catch (IOException e) {
+        			e.printStackTrace();
+        		}            	
+                System.out.println("----"+this.getTitle()+"讀取完畢----");
             }
             void close() {
-                System.out.println("關閉文字檔案 " + this.getTitle());
+            	CsvReader readfile = this.getreader();
+            	readfile.close();
+                System.out.println("關閉CSV檔 " + this.getTitle());
             }            
         };
     }
 }
 public class HW1 {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try {
-			
-			CsvReader products = new CsvReader(new InputStreamReader(new FileInputStream(new File("women.csv")),"UTF-8"));  
-		
-			//products.readHeaders();
-
-			while (products.readRecord())
-			{
-				System.out.println("current record: " + products.getCurrentRecord());  
-			    System.out.println("RawRecord:" + products.getRawRecord());  
-			    System.out.println("getValues() ");  
-                for (String s : products.getValues()) {  
-                    System.out.print("--" + s);  
-                }  
-                System.out.println();
-			}
-	
-			products.close();
-			
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
+        Editor editor = new TextEditor();
+        editor.open("women.csv");
+        editor.open("f1365640740030.csv");
+        editor.read();
+        editor.close();
 	}
 
 }
