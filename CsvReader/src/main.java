@@ -1,3 +1,6 @@
+
+
+
 import java.io.File; 
 import java.io.InputStream;
 import java.io.FileInputStream;  
@@ -72,10 +75,10 @@ class TextEditor extends Editor {
     Document createDocument() {
         return new Document() {
             void open() {
-                System.out.println("開啟CSV檔 " + this.getTitle());
+                System.out.println("----開啟CSV檔 " + this.getTitle());
             }
             void read() {
-            	System.out.println("讀取CSV檔 " + this.getTitle());
+            	System.out.println("----讀取CSV檔 " + this.getTitle());
             	CsvReader readfile = this.getreader();
             	try {     			
         			readfile.readHeaders();
@@ -98,12 +101,12 @@ class TextEditor extends Editor {
             void close() {
             	CsvReader readfile = this.getreader();
             	readfile.close();
-                System.out.println("關閉CSV檔 " + this.getTitle());
+                System.out.println("----關閉CSV檔 " + this.getTitle());
             }            
         };
     }
 }
-public class HW1 {
+public class main {
 	public static void main(String[] args) {
         Editor editor = new TextEditor();
         editor.open("women.csv");
