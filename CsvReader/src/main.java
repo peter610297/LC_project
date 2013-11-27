@@ -52,8 +52,7 @@ abstract class Document {
             	this.file = new CsvReader(new FileReader(title));
             }
             
-            //close inputStream
-            ios.close();
+            ios.close();//close inputStream
             
         }catch (IOException e) {
 			e.printStackTrace();
@@ -114,19 +113,16 @@ class Csvreader extends Reader {
             
             //print all data in the csv file
             void read() {
-            	System.out.println("----reading CSV file: " + this.getTitle());
+            	System.out.println("----reading CSV file: " + this.getTitle());            	
+          
+            	CsvReader readfile = this.getreader(); //get doc csvReader
             	
-            	//get doc csvReader
-            	CsvReader readfile = this.getreader();
-            	
-            	try {     			
-            		
+            	try {     			            		
             		//read the first record of data as column headers
         			readfile.readHeaders();
         			
         			while (readfile.readRecord())
-        			{
-        				
+        			{   				
         				//gets the index of the current record
         				System.out.println("Current Record: " + readfile.getCurrentRecord());    
         			    System.out.print("Values: ");  
