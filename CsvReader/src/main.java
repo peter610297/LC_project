@@ -1,5 +1,10 @@
-
-
+/***********************************************************************
+ * Document   : CsvReader.java
+ * Create on  : 2013 / 11 / 20
+ * Author     : peter610297 , MxmoParis , Neal-liu , chitsutote
+ * Description: 讀取資料夾內的csv檔，並將csv檔裡的內容全補 
+ *      
+ ************************************************************************/
 
 import java.io.File; 
 import java.io.InputStream;
@@ -41,7 +46,7 @@ abstract class Document {
     abstract void close();
 }
 
-abstract class Editor {
+abstract class Reader {
     private List<Document> docs = new ArrayList<Document>();
     void open(String file) {
         Document doc = createDocument();
@@ -71,7 +76,7 @@ abstract class Editor {
     }
     abstract Document createDocument(); // Factory method
 }
-class TextEditor extends Editor {
+class Csvreader extends Reader {
     Document createDocument() {
         return new Document() {
             void open() {
@@ -108,11 +113,11 @@ class TextEditor extends Editor {
 }
 public class main {
 	public static void main(String[] args) {
-        Editor editor = new TextEditor();
-        editor.open("women.csv");
-        editor.open("f1365640740030.csv");
-        editor.read();
-        editor.close();
+        Reader CurRead = new Csvreader();
+        CurRead.open("women.csv");
+        CurRead.open("f1365640740030.csv");
+        CurRead.read();
+        CurRead.close();
 	}
 
 }
