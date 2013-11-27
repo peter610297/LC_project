@@ -2,7 +2,8 @@
  * Document   : CsvReader.java                                         *
  * Create on  : 2013 / 11 / 20                                         *
  * Author     : peter610297 , MxmoParis , Neal-liu , chitsutote        *
- * Description: 讀取資料夾內的csv檔，並將csv檔裡的資料全部列出，使用Factory                                                                                 *
+ * Description: 讀取資料夾內的csv檔，並將csv檔裡的資料全部列出，使用Design Pattern　　　　 * 
+ *              Factory Method模式的做法，由子類別完成建立具體的 Document           *
  *                                                                     *
  ************************************************************************/
 
@@ -17,8 +18,8 @@ import com.csvreader.CsvReader;
 
 abstract class Document {
 	
-    private String title;
-    private CsvReader file;
+    private String title;   //file name
+    private CsvReader file; //csv reader
     
     //get title
     String getTitle() {
@@ -45,11 +46,12 @@ abstract class Document {
             if(b[0]==-17&&b[1]==-69&&b[2]==-65){   
             	this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(title)),"UTF-8"));
             }
+            //other formats
             else{
             	this.file = new CsvReader(new FileReader(title));
             }
             
-            //close InputStream
+            //close inputStream
             ios.close();
             
         }catch (IOException e) {
@@ -65,7 +67,7 @@ abstract class Document {
 abstract class Reader {
     private List<Document> docs = new ArrayList<Document>();
     
-    //add new file to the list and 
+    //add new file to the list and set fils's title
     void open(String file) {
         Document doc = createDocument();
         doc.openDoc(file);
@@ -157,12 +159,14 @@ class Csvreader extends Reader {
 public class main {
 	public static void main(String[] args) {
 		
-		
         Reader CurRead = new Csvreader();
+        
+        //open file 
         CurRead.open("women.csv");
         CurRead.open("f1365640740030.csv");
-        CurRead.read();
-        CurRead.close();
+        
+        CurRead.read();  //read all file
+        CurRead.close(); //close all file
         
 	}
 }
