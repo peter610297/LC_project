@@ -3,8 +3,8 @@
  * Document   : CsvReader.java                                         
  * Create on  : 2013 / 11 / 20                                         
  * Author     : peter610297 , MxmoParis , Neal-liu , chitsutote        
- * Description: Åª¨ú¸ê®Æ§¨¤ºªºcsvÀÉ¡A¨Ã±NcsvÀÉ¸Ìªº¸ê®Æ¥þ³¡¦C¥X¡A¨Ï¥ÎDesign Pattern¡@¡@¡@¡@  
- *              Factory Method¼Ò¦¡ªº°µªk¡A¥Ñ¤lÃþ§O§¹¦¨«Ø¥ß¨ãÅéªº Document           
+ * Description: Åªï¿½ï¿½ï¿½ï¿½ï¿½Æ§ï¿½ï¿½ï¿½ï¿½ï¿½csvï¿½É¡Aï¿½Ã±Ncsvï¿½É¸Ìªï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Cï¿½Xï¿½Aï¿½Ï¥ï¿½Design Patternï¿½@ï¿½@ï¿½@ï¿½@  
+ *              Factory Methodï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½kï¿½Aï¿½Ñ¤lï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Ø¥ß¨ï¿½ï¿½éªº Document           
  *                                                                     
  ************************************************************************/
 
@@ -113,33 +113,32 @@ class Csvreader extends Reader {
             
             //print all data in the csv file
             void read() {
-            	System.out.println("----reading CSV file: " + this.getTitle());            	
-          
-            	CsvReader readfile = this.getreader(); //get doc csvReader
-            	
-            	try {     			            		
-            		//read the first record of data as column headers
-        			readfile.readHeaders();
-        			
-        			while (readfile.readRecord())
-        			{   				
-        				//gets the index of the current record
-        				System.out.println("Current Record: " + readfile.getCurrentRecord());    
-        			    System.out.print("Values: ");  
-        			    
-        			    //print each column of the row
-                        for (String s : readfile.getValues()) {  
-                            System.out.print(" [" + s +"] ");  
-                        }  
-                        
-                        System.out.println();
-                        System.out.println("----"+this.getTitle()+" finished----");
-        			}
-        			
-        		}catch (IOException e) {
-        			e.printStackTrace();
-        		}            	
-            }
+				System.out.println("----reading CSV file: " + this.getTitle());            	
+				
+				CsvReader readfile = this.getreader(); //get doc csvReader
+				
+				try {     			            		
+				//read the first record of data as column headers
+					readfile.readHeaders();
+				
+					while (readfile.readRecord())
+					{   				
+						//gets the index of the current record
+						System.out.println("Current Record: " + readfile.getCurrentRecord());    
+						System.out.print("Values: ");  
+				
+						//print each column of the row
+						for (String s : readfile.getValues()) {  
+							System.out.print(" [" + s +"] ");  
+						}  
+				
+					System.out.println();
+					System.out.println("----"+this.getTitle()+" finished----");
+					}
+				}catch (IOException e) {
+					e.printStackTrace();
+				}            	
+			}
             
             void close() {
             	CsvReader readfile = this.getreader();
