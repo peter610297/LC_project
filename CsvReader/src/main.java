@@ -141,8 +141,7 @@ class Csvreader extends Reader {
 			}
             
             void close() {
-            	CsvReader readfile = this.getreader();
-            	
+            	CsvReader readfile = this.getreader();     	
             	//close files
             	readfile.close();
                 System.out.println("----close CSV file: " + this.getTitle());
