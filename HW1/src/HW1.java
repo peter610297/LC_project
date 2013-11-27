@@ -27,7 +27,7 @@ abstract class Document {
             if(b[0]==-17&&b[1]==-69&&b[2]==-65)   
             	this.file = new CsvReader(new InputStreamReader(new FileInputStream(csvfile),"UTF-8"));
             else
-            	this.file = new CsvReader(new InputStreamReader(new FileInputStream(csvfile),"UTF-8"));
+            	this.file = new CsvReader(new FileReader(title));
             ios.close();
         }catch (IOException e) {
 			e.printStackTrace();
