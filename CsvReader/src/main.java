@@ -1,10 +1,10 @@
 /***********************************************************************
- * Document   : CsvReader.java                                         *
- * Create on  : 2013 / 11 / 20                                         *
- * Author     : peter610297 , MxmoParis , Neal-liu , chitsutote        *
- * Description: 讀取資料夾內的csv檔，並將csv檔裡的資料全部列出，使用Design Pattern　　　　 * 
- *              Factory Method模式的做法，由子類別完成建立具體的 Document           *
- *                                                                     *
+ * Document   : CsvReader.java                                         
+ * Create on  : 2013 / 11 / 20                                         
+ * Author     : peter610297 , MxmoParis , Neal-liu , chitsutote        
+ * Description: 讀取資料夾內的csv檔，並將csv檔裡的資料全部列出，使用Design Pattern　　　　  
+ *              Factory Method模式的做法，由子類別完成建立具體的 Document           
+ *                                                                     
  ************************************************************************/
 
 import java.io.File; 
