@@ -35,11 +35,7 @@ abstract class Application{
     public void NewDocument(String N){
         FileName = N;
         doc.Open(FileName);
-    }	
-    public void ReadDocument(){
     	doc.Read();
-    }	
-    public void CloseDocument(){
     	doc.Close();
     }
 }
@@ -92,7 +88,7 @@ class ANSIDocument extends Document{
             
         }catch (IOException e) {
 			e.printStackTrace();
-		}        
+		}
     }
     public void Read(){
     	CsvReader readfile = file; //get doc csvReader
@@ -131,13 +127,10 @@ public class main {
 		DocApplication file1 = new DocApplication();
 		file1.doc = new UTF8Document();
 		file1.NewDocument("women.csv");
-		file1.ReadDocument();
-		file1.CloseDocument();
 		
 		DocApplication file2 = new DocApplication();
 		file2.doc = new ANSIDocument();
 		file2.NewDocument("f1365640740030.csv");
-		file2.ReadDocument();
-		file2.CloseDocument();
+		
 	}
 }
