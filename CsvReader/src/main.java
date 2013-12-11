@@ -117,8 +117,8 @@ class ANSIDocument extends Document{
     }
 }
 
-class MyApplication extends Application{
-    public MyApplication(){
+class DocApplication extends Application{
+    public DocApplication(){
     }
     public Document CreateDocument(){
         return doc;
@@ -128,16 +128,16 @@ class MyApplication extends Application{
 public class main {
 	public static void main(String[] args) {
 		
-		MyApplication App1 = new MyApplication();
-		App1.doc = new UTF8Document();
-		App1.NewDocument("women.csv");
-		App1.ReadDocument();
-		App1.CloseDocument();
+		DocApplication file1 = new DocApplication();
+		file1.doc = new UTF8Document();
+		file1.NewDocument("women.csv");
+		file1.ReadDocument();
+		file1.CloseDocument();
 		
-		MyApplication App2 = new MyApplication();
-		App2.doc = new ANSIDocument();
-		App2.NewDocument("f1365640740030.csv");
-		App2.ReadDocument();
-		App2.CloseDocument();
+		DocApplication file2 = new DocApplication();
+		file2.doc = new ANSIDocument();
+		file2.NewDocument("f1365640740030.csv");
+		file2.ReadDocument();
+		file2.CloseDocument();
 	}
 }
