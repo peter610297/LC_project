@@ -17,152 +17,127 @@ import java.io.InputStreamReader;
 import java.util.*;
 import com.csvreader.CsvReader; 
 
-abstract class Document {
+abstract class Document{
+    public abstract void Open(String name) ;
+    public abstract void Read() ;
+    public abstract void Close() ;
+}
+
+abstract class Application{
 	
-    private String title;   //file name
-    private CsvReader file; //csv reader
+    protected Document doc;
+    protected String FileName;
     
-    //get title
-    String getTitle() {
-        return title;
+    public Application(){
     }
+    public abstract Document CreateDocument();
     
-    //get file
-    CsvReader getreader(){
-    	return file;
+    public void NewDocument(String N){
+        FileName = N;
+        doc.Open(FileName);
+    }	
+    public void ReadDocument(){
+    	doc.Read();
+    }	
+    public void CloseDocument(){
+    	doc.Close();
     }
-    
-    //open the file and set title
-    void openDoc(String title) {
-    	
-        this.title = title;  //set title
-        
+}
+
+class UTF8Document extends Document{
+	private CsvReader file;
+    public UTF8Document(){
+        System.out.println("---Open as UTF-8---");
+    }
+    public void Open(String name){
+    	System.out.println("---open file: "+name);
         try{
-        	
-        	InputStream ios=new FileInputStream(new File(title));
-        	byte[] b=new byte[3];  
-            ios.read(b);     //read first three bytes of file
-            
-            //check first three values of word, if values are -17,-69,-65 then open as UTF-8 format
-            if(b[0]==-17&&b[1]==-69&&b[2]==-65){   
-            	this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(title)),"UTF-8"));
-            }
-            //other formats
-            else{
-            	this.file = new CsvReader(new FileReader(title));
-            }
-            
-            ios.close();//close inputStream
+            this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(name)),"UTF-8"));
             
         }catch (IOException e) {
 			e.printStackTrace();
-		}
+		}        
     }
-    
-    abstract void open();
-    abstract void read();
-    abstract void close();
+    public void Read(){
+    	CsvReader readfile = file; //get doc csvReader
+    	int total=0;
+    	try {     			            		
+    		//read the first record of data as column headers
+			readfile.readHeaders();
+			
+			while (readfile.readRecord())
+			{   				
+				total++;
+			}
+			System.out.println("---Total Data: "+total);
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}            	
+    }
+    public void Close(){
+    	file.close();
+        System.out.println("---close File---\n");
+    }
+}
+class ANSIDocument extends Document{
+	private CsvReader file;
+    public ANSIDocument(){
+        System.out.println("---Open as ANSI");
+    }
+    public void Open(String name){
+        System.out.println("---open file: "+name);
+        try{
+        	this.file = new CsvReader(new FileReader(name));
+            
+        }catch (IOException e) {
+			e.printStackTrace();
+		}        
+    }
+    public void Read(){
+    	CsvReader readfile = file; //get doc csvReader
+    	int total=0;
+    	try {     			            		
+    		//read the first record of data as column headers
+			readfile.readHeaders();
+			
+			while (readfile.readRecord())
+			{   				
+				total++;
+			}
+			System.out.println("---Total Data: "+total);
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}            	
+    }
+    public void Close(){
+    	file.close();
+        System.out.println("---close File---\n");
+    }
 }
 
-abstract class Reader {
-    private List<Document> docs = new ArrayList<Document>();
-    
-    //add new file to the list and set fils's title
-    void open(String file) {
-        Document doc = createDocument();
-        doc.openDoc(file);
-        doc.open();
-        docs.add(doc);
+class MyApplication extends Application{
+    public MyApplication(){
     }
-    
-    //call Document read() function
-    void read(Document doc) {
-        doc.read();
-    }
-    
-    //read all Documents in the list
-    void read() {
-        for(Document doc : docs) {
-            read(doc);
-        }
-    }
-    
-   //call Document close() function
-    void close(Document doc) {
-        doc.close();
-    }
-    
-    //close all Documents in the list
-    void close() {
-        for(Document doc : docs) {
-            close(doc);
-        }
-    }
-    
-    // Factory method
-    abstract Document createDocument(); 
-    
-}
-class Csvreader extends Reader {
-    Document createDocument() {
-        return new Document() {
-        	
-            void open() {
-                System.out.println("----open CSV file: " + this.getTitle());
-            }
-            
-            //print all data in the csv file
-            void read() {
-            	System.out.println("----reading CSV file: " + this.getTitle());            	
-          
-            	CsvReader readfile = this.getreader(); //get doc csvReader
-            	
-            	try {     			            		
-            		//read the first record of data as column headers
-        			readfile.readHeaders();
-        			
-        			while (readfile.readRecord())
-        			{   				
-        				//gets the index of the current record
-        				System.out.println("Current Record: " + readfile.getCurrentRecord());    
-        			    System.out.print("Values: ");  
-        			    
-        			    //print each column of the row
-                        for (String s : readfile.getValues()) {  
-                            System.out.print(" [" + s +"] ");  
-                        }  
-                        
-                        System.out.println();
-                        System.out.println("----"+this.getTitle()+" finished----");
-        			}
-        			
-        		}catch (IOException e) {
-        			e.printStackTrace();
-        		}            	
-            }
-            
-            void close() {
-            	CsvReader readfile = this.getreader();     	
-            	//close files
-            	readfile.close();
-                System.out.println("----close CSV file: " + this.getTitle());
-            }
-            
-        };
+    public Document CreateDocument(){
+        return doc;
     }
 }
 
 public class main {
 	public static void main(String[] args) {
 		
-        Reader CurRead = new Csvreader();
-        
-        //open file 
-        CurRead.open("women.csv");
-        CurRead.open("f1365640740030.csv");
-        
-        CurRead.read();  //read all file
-        CurRead.close(); //close all file
-        
+		MyApplication App1 = new MyApplication();
+		App1.doc = new UTF8Document();
+		App1.NewDocument("women.csv");
+		App1.ReadDocument();
+		App1.CloseDocument();
+		
+		MyApplication App2 = new MyApplication();
+		App2.doc = new ANSIDocument();
+		App2.NewDocument("f1365640740030.csv");
+		App2.ReadDocument();
+		App2.CloseDocument();
 	}
 }
