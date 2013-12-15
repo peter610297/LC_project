@@ -3,8 +3,8 @@
  * Document   : CsvReader.java                                         
  * Create on  : 2013 / 11 / 20                                         
  * Author     : peter610297 , MxmoParis , Neal-liu , chitsutote        
- * Description: Åª¨ú¸ê®Æ§¨¤ºªºcsvÀÉ¡A¨Ã±NcsvÀÉ¸Ìªº¸ê®Æ¥ş³¡¦C¥X¡A¨Ï¥ÎDesign Pattern¡@¡@¡@¡@  
- *              Factory Method¼Ò¦¡ªº°µªk¡A¥Ñ¤lÃş§O§¹¦¨«Ø¥ß¨ãÅéªº Document           
+ * Description: è®€å–è³‡æ–™å¤¾å…§çš„csvæª”ï¼Œä¸¦å°‡csvæª”è£¡çš„è³‡æ–™å…¨éƒ¨åˆ—å‡ºï¼Œä½¿ç”¨Design Patternã€€ã€€ã€€ã€€  
+ *              Factory Methodæ¨¡å¼çš„åšæ³•ï¼Œç”±å­é¡åˆ¥å®Œæˆå»ºç«‹å…·é«”çš„ Document           
  *                                                                     
  ************************************************************************/
 
@@ -19,7 +19,8 @@ import com.csvreader.CsvReader;
 
 abstract class Document{
     public abstract void Open(String name) ;
-    public abstract void Read() ;
+    public abstract int Read() ;
+    public abstract int GetSize();
     public abstract void Close() ;
 }
 
@@ -36,12 +37,14 @@ abstract class Application{
         FileName = N;
         doc.Open(FileName);
     	doc.Read();
+//    	doc.GetSize();
     	doc.Close();
     }
 }
 
 class UTF8Document extends Document{
 	private CsvReader file;
+	private int total = 0;
     public UTF8Document(){
         System.out.println("---Open as UTF-8---");
     }
@@ -49,14 +52,13 @@ class UTF8Document extends Document{
     	System.out.println("---open file: "+name);
         try{
             this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(name)),"UTF-8"));
-            
-        }catch (IOException e) {
-			e.printStackTrace();
-		}        
+        }	catch (IOException e) {
+				e.printStackTrace();
+			}        
     }
-    public void Read(){
+    public int Read(){
     	CsvReader readfile = file; //get doc csvReader
-    	int total=0;
+    //	int total=0;
     	try {     			            		
     		//read the first record of data as column headers
 			readfile.readHeaders();
@@ -66,33 +68,41 @@ class UTF8Document extends Document{
 				total++;
 			}
 			System.out.println("---Total Data: "+total);
+	//		this.GetSize(total);
+			
 			
 		}catch (IOException e) {
 			e.printStackTrace();
 		}            	
+    	return total;
     }
+    public int GetSize(){
+    	return total;
+    }
+    
     public void Close(){
-    	file.close();
+ //   	file.close();
         System.out.println("---close File---\n");
     }
 }
 class ANSIDocument extends Document{
 	private CsvReader file;
+	private int total = 0;
     public ANSIDocument(){
         System.out.println("---Open as ANSI");
     }
     public void Open(String name){
         System.out.println("---open file: "+name);
         try{
-        	this.file = new CsvReader(new FileReader(name));
-            
+   //     	this.file = new CsvReader(new FileReader(name));
+            this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(name)),"MS950"));            
         }catch (IOException e) {
 			e.printStackTrace();
-		}
+		}        
     }
-    public void Read(){
+    public int Read(){
     	CsvReader readfile = file; //get doc csvReader
-    	int total=0;
+ //   	int total=0;
     	try {     			            		
     		//read the first record of data as column headers
 			readfile.readHeaders();
@@ -105,10 +115,14 @@ class ANSIDocument extends Document{
 			
 		}catch (IOException e) {
 			e.printStackTrace();
-		}            	
+		}          
+    	return total;
+    }
+    public int GetSize(){
+    	return total;
     }
     public void Close(){
-    	file.close();
+ //   	file.close();
         System.out.println("---close File---\n");
     }
 }
@@ -121,9 +135,9 @@ class DocApplication extends Application{
     }
 }
 
-public class main {
+public class LC {
+	
 	public static void main(String[] args) {
-		
 		DocApplication file1 = new DocApplication();
 		file1.doc = new UTF8Document();
 		file1.NewDocument("women.csv");
@@ -131,6 +145,30 @@ public class main {
 		DocApplication file2 = new DocApplication();
 		file2.doc = new ANSIDocument();
 		file2.NewDocument("f1365640740030.csv");
-		
 	}
+	
+	// unit test
+	public int TestSize(){
+		DocApplication test = new DocApplication();
+		test.doc = new UTF8Document();
+		test.NewDocument("women.csv");
+		
+//		try {
+ //           if(test.doc.Read() == T)
+  //          	return true;
+   //     } catch (Exception e) {
+   //         return false;
+   //     }
+        return test.doc.Read();
+	}
+	//unit test
+	public boolean isNumber(String data) {
+        try {
+            Integer.valueOf(data);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+	
 }
