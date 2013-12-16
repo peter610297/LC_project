@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="main" name="LC">
+	<property name="src.dir" 		value="src"/>
+	<property name="lib.dir" 		value="lib"/>
+	<property name="build.dir" 		value="build"/>
+	<property name="classes.dir"	value="${build.dir}/classes"/>
+	<property name="jar.dir"		value="${build.dir}/jar"/>
+	<property name="main-class"		value="LC"/>
+	<property name="report.dir" 	value="reports"/>
+	<property name="report.raw.dir" value="${report.dir}/raw"/>
+	
+	<path id="class.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+		<target name="init">
+		        <!-- Create the build directory structure used by compile and junit testing -->
+		        <mkdir dir="${build.dir}"/>
+		        <mkdir dir="${report.dir}"/>
+				<mkdir dir="${report.raw.dir}"/>
+		        <mkdir dir="${classes.dir}"/>
+		        <mkdir dir="${jar.dir}"/>
+		    </target>
+	
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+	<target name="compile" depends="init">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="on" deprecation="on" encoding="iso-8859-1">
+			<classpath refid="class.classpath"/>
+		</javac>
+	</target>
+	<target name="jar" depends="compile">
+		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-class" value="${main-class}"/>
+			</manifest>
+			<!--zip jar group in lib -->
+			<zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+		</jar>
+	</target>
+
+	<target name="run" depends="jar">
+		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+<!--		<classpath>
+			<pathelement path="${lib.dir}"/>
+			<pathelement location="javacsv.jar"/>
+		</classpath>
+		</java>-->
+	</target>
+	
+	<target name="clean-build" depends="clean,jar"/>
+	
+	<target name="main" depends="clean,run,test"/>
+	
+	<target name="run-tests" depends="compile" description="run your test suite" >
+		<junit printsummary="yes" haltonfailure="no" showoutput="no">
+			<classpath>
+				<pathelement path="${build.dir}"/>
+				<pathelement location="${classes.dir}"/>
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+			
+			<batchtest fork="yes" todir="${report.raw.dir}/">
+				<formatter type="xml"/>
+				<fileset dir="${src.dir}">
+					<include name="**/*Test*.java"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<target name="test" depends="run-tests">
+		<junitreport todir="${report.dir}"> 
+			<fileset dir="${report.raw.dir}/">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report format="frames" todir="${report.dir}/html"/>
+		</junitreport> 
+	</target>
+<!--	<target name="test" depends="compile">
+		<junit printsummary="yes">
+			<formatter type="xml"/>    
+	        <test name="**/*Test*.java" todir="${report.dir}"/>    
+			<classpath refid="class.classpath"/>    
+		</junit>   
+	</target>  
+	<target name="report" depends="test">
+		<junitreport todir="${report.dir}"> 
+			<fileset dir="${report.dir}/">
+				<include name="Test-*.xml"/>
+			</fileset>
+			<report format="frames" todir="${report.dir}/html"/>
+		</junitreport> 
+	</target> -->
+</project>
