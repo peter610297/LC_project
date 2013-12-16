@@ -3,8 +3,8 @@
  * Document   : CsvReader.java                                         
  * Create on  : 2013 / 11 / 20                                         
  * Author     : peter610297 , MxmoParis , Neal-liu , chitsutote        
- * Description: è®€å–è³‡æ–™å¤¾å…§çš„csvæª”ï¼Œä¸¦å°‡csvæª”è£¡çš„è³‡æ–™å…¨éƒ¨åˆ—å‡ºï¼Œä½¿ç”¨Design Patternã€€ã€€ã€€ã€€  
- *              Factory Methodæ¨¡å¼çš„åšæ³•ï¼Œç”±å­é¡åˆ¥å®Œæˆå»ºç«‹å…·é«”çš„ Document           
+ * Description: Åª¨ú¸ê®Æ§¨¤ºªºcsvÀÉ¡A¨Ã±NcsvÀÉ¸Ìªº¸ê®Æ¥ş³¡¦C¥X¡A¨Ï¥ÎDesign Pattern¡@¡@¡@¡@  
+ *              Factory Method¼Ò¦¡ªº°µªk¡A¥Ñ¤lÃş§O§¹¦¨«Ø¥ß¨ãÅéªº Document           
  *                                                                     
  ************************************************************************/
 
@@ -138,13 +138,17 @@ class DocApplication extends Application{
 public class LC {
 	
 	public static void main(String[] args) {
+		filedownload url = new filedownload();
+		url.download("accident","http://data.gov.tw/opendata/addCount?sno=301000000A-00006&dataformat=csv&url=http%3a%2f%2fwww.npa.gov.tw%2fNPAGip%2fwSite%2fpublic%2fAttachment%2ff1365640740030.csv");
+		url.download("women", "http://data.gov.tw/opendata/addCount?sno=301000000A-00010&dataformat=csv&url=http%3a%2f%2fwww.moi.gov.tw%2fopendata%2fwomen.csv");
+
 		DocApplication file1 = new DocApplication();
 		file1.doc = new UTF8Document();
 		file1.NewDocument("women.csv");
 		
 		DocApplication file2 = new DocApplication();
 		file2.doc = new ANSIDocument();
-		file2.NewDocument("f1365640740030.csv");
+		file2.NewDocument("accident.csv");
 	}
 	
 	// unit test
@@ -152,7 +156,6 @@ public class LC {
 		DocApplication test = new DocApplication();
 		test.doc = new UTF8Document();
 		test.NewDocument("women.csv");
-		
 //		try {
  //           if(test.doc.Read() == T)
   //          	return true;
