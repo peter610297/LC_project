@@ -1,0 +1,25 @@
+HW3
+
+下星期要上台說明接下來5週的plan:
+
+Plan your Schedule in 5 weeks
+-12/19, 12/26, 1/2, 1/9, 1/16
+-Discuss issues in 5 mins at 12/19
+*Plan must contain
+-Milestone for code review at 12/26
+*Program can run with "limited functions"
+-Beta Release at 1/9
+*Program is totally finished with "functional test"
+-Release with Continuous Integration at 1/16
+
+
+Project - Security Warning
+
+12/19: 能從網路上抓取link並download data 作讀取的動作
+12/26: 輸入地址, 找出附近有無犯罪紀錄 車禍等因素 算出危險指數
+1/2:   issue tracking, unit test, build automation 更完整  -- beta release at 1/9
+1/9:   作成APP or 優化 - release at 1/16
+1/16:  demo with continuous integration
+
+(Note: write data in postgreSQL and read data from there)
+
