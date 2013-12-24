@@ -1,6 +1,6 @@
 HW3
 
-¤U¬P´Á­n¤W¥x»¡©ú±µ¤U¨Ó5¶gªºplan:
+ï¿½Uï¿½Pï¿½ï¿½ï¿½nï¿½Wï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½5ï¿½gï¿½ï¿½plan:
 
 Plan your Schedule in 5 weeks
 -12/19, 12/26, 1/2, 1/9, 1/16
@@ -15,12 +15,12 @@ Plan your Schedule in 5 weeks
 
 Project - Security Warning
 
-12/19: ¯à±qºô¸ô¤W§ì¨úlink¨Ãdownload data §@Åª¨úªº°Ê§@
-12/26: ¯à¹ê§@database, ¨Ã±qdatabase Åª¨ú
-1/2:   input¦a§}, trace data §ä¨ì²Å¦Xªº¸ê®Æ §ä¥Xªþªñ¦³µL¥Ç¸o¬ö¿ý ¨®º×µ¥¦]¯À ºâ¥X¦MÀI«ü¼Æ
+12/19: ï¿½ï¿½ï¿½qï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½linkï¿½ï¿½download data ï¿½@Åªï¿½ï¿½ï¿½ï¿½ï¿½Ê§@
+12/26: ï¿½ï¿½ï¿½ï¿½ï¿½@database
+1/2:   inputï¿½aï¿½}, trace data ï¿½ï¿½ï¿½ï¿½ï¿½Å¦Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ñ¦³µLï¿½Ç¸oï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×µï¿½ï¿½]ï¿½ï¿½ ï¿½ï¿½ï¿½Xï¿½Mï¿½Iï¿½ï¿½ï¿½ï¿½
 1/9:   beta
 1/16:  demo with continuous integration
 
-issue tracking, unit test, build automation §ó§¹¾ã  --
+issue tracking, unit test, build automation ï¿½ó§¹¾ï¿½  --
 (Note: write data in postgreSQL and read data from there)
 
