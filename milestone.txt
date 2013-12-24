@@ -16,10 +16,11 @@ Plan your Schedule in 5 weeks
 Project - Security Warning
 
 12/19: 能從網路上抓取link並download data 作讀取的動作
-12/26: 輸入地址, 找出附近有無犯罪紀錄 車禍等因素 算出危險指數
-1/2:   issue tracking, unit test, build automation 更完整  -- beta release at 1/9
-1/9:   作成APP or 優化 - release at 1/16
+12/26: 能實作database, 並從database 讀取
+1/2:   input地址, trace data 找到符合的資料 找出附近有無犯罪紀錄 車禍等因素 算出危險指數
+1/9:   beta
 1/16:  demo with continuous integration
 
+issue tracking, unit test, build automation 更完整  --
 (Note: write data in postgreSQL and read data from there)
 
