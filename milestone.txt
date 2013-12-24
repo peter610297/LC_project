@@ -1,6 +1,6 @@
 HW3
 
-�U�P���n�W�x�������U��5�g��plan:
+下星期要上台說明接下來5週的plan:
 
 Plan your Schedule in 5 weeks
 -12/19, 12/26, 1/2, 1/9, 1/16
@@ -15,12 +15,12 @@ Plan your Schedule in 5 weeks
 
 Project - Security Warning
 
-12/19: ���q�����W����link��download data �@Ū�����ʧ@
-12/26: �����@database
-1/2:   input�a�}, trace data �����ŦX������ ���X���񦳵L�Ǹo���� ���׵��]�� ���X�M�I����
+12/19: 能從網路上抓取link並download data 作讀取的動作
+12/26: 能實作database
+1/2:   input地址, trace data 找到符合的資料 找出附近有無犯罪紀錄 車禍等因素 算出危險指數
 1/9:   beta
 1/16:  demo with continuous integration
 
-issue tracking, unit test, build automation �󧹾�  --
+issue tracking, unit test, build automation 更完整  --
 (Note: write data in postgreSQL and read data from there)
 
