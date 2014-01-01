@@ -30,8 +30,7 @@ public class mainTest {
 		String LinkResult = "";
 		try{
 			LinkResult = new String(data.GetURL());
-			Link = "http://data.gov.tw/opendata/addCount?sno=301000000A-00006&dataformat=csv"+
-					"&url=http%3a%2f%2fwww.npa.gov.tw%2fNPAGip%2fwSite%2fpublic%2fAttachment%2ff1365640740030.csv";
+			Link = "http://www.npa.gov.tw/NPAGip/wSite/public/Attachment/f1365640740030.csv";
 		}catch (Exception e){
 			e.printStackTrace();
 		}
