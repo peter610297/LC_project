@@ -13,7 +13,6 @@ import java.io.FileInputStream;
 import java.io.IOException;  
 import java.io.InputStreamReader;
 import com.csvreader.CsvReader; 
-import java.io.*;
 
 abstract class Document{
     public abstract void Open(String name) ;
@@ -52,7 +51,7 @@ class UTF8Document extends Document{
     public void Open(String name){
     	System.out.println("---open file: "+name);
         try{
-            this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(name)),"UTF-8"));
+            this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(name)),"utf-16"));
         }	catch (IOException e) {
 				e.printStackTrace();
 			}        
@@ -66,12 +65,15 @@ class UTF8Document extends Document{
 			
 			while (readfile.readRecord())
 			{   				
-				total++;
 				if(data.TestTime()){
 					String womanNum = readfile.get(0);
-					String womanPlace = readfile.get(1);
-					T_Sql.WomSql(womanNum, womanPlace);
+	//				String womanPlace = readfile.get(1);
+					String t = Integer.toString(total);
+	//				System.out.println(womanNum);
+	//				System.out.println(womanPlace);
+					T_Sql.WomSql(t, womanNum);
 				}
+				total++;
 			}
 			System.out.println("---Total Data: "+total);
 	//		this.GetSize(total);
@@ -157,13 +159,13 @@ public class LC {
 		CatchData data = new CatchData();
 		if(data.TestTime()){
 			System.out.println("Data should be updated !!");
+			data.GetURL();
 			data.loadURLfile(data.data1, "C:/Users/hung/workspace/TestCsv", "AccidentsData");
+	//		data.loadURLfile(data.data1, "/TestCsv", "AccidentsData");
 			data.loadURLfile(data.data2, "C:/Users/hung/workspace/TestCsv", "WomenData");
 		}
 		else 
 			System.out.println("The data is fresh !!");
-	//	Sql T_Sql = new Sql();
-	//	T_Sql.TestSql();
 		
 		DocApplication file1 = new DocApplication();
 		file1.doc = new UTF8Document();
@@ -172,6 +174,11 @@ public class LC {
 		DocApplication file2 = new DocApplication();
 		file2.doc = new ANSIDocument();
 		file2.NewDocument("AccidentsData.csv");
+		
+		MyPlace location = new MyPlace();
+		location.MyLocation();
+		
+		System.exit(0);
 	}
 	
 	// unit test

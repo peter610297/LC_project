@@ -4,12 +4,12 @@ import org.junit.*;
 
 public class mainTest {
 	LC testNum = new LC();
-
+	
 	@Before
 	public void setup() throws Exception{
 	}
 	@Test
-	public void test2(){
+	public void testTotal(){
 		int total = 0;
 		int result = 0;
 		DocApplication test = new DocApplication();
@@ -17,20 +17,24 @@ public class mainTest {
 		test.NewDocument("WomenData.csv");
 		try{
 			total = test.doc.Read();
-		}	catch (Exception e){
-			e.printStackTrace();
-		}
-		
-		try {
 			result = testNum.TestSize();
-		} catch (Exception e) {
-									// TODO Auto-generated catch block
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		assertEquals(total,result);
 	}
 	@Test
-	public void test3(){
-		assertEquals(true,testNum.isNumber("792"));
+	public void testLink(){
+		CatchData data = new CatchData();
+		String Link = "";
+		String LinkResult = "";
+		try{
+			LinkResult = new String(data.GetURL());
+			Link = "http://data.gov.tw/opendata/addCount?sno=301000000A-00006&dataformat=csv"+
+					"&url=http%3a%2f%2fwww.npa.gov.tw%2fNPAGip%2fwSite%2fpublic%2fAttachment%2ff1365640740030.csv";
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		assertTrue(Link.equals(LinkResult));
 	}
 }

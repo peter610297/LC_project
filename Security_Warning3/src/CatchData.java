@@ -1,17 +1,15 @@
-
+/*Get the data link from the website and 
+ * update the data if it's old           */
 import java.io.BufferedInputStream;
 import java.io.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
 
 public class CatchData {
-	public final String data1 = "http://data.gov.tw/opendata/addCount?sno=301000000A-00006&" +
-			"dataformat=csv&url=http%3a%2f%2fwww.npa.gov.tw%2fNPAGip%2fwSite%2fpublic%2fAttachment%2ff1365640740030.csv";
-	public final String data2 = "http://data.gov.tw/opendata/addCount?sno=301000000A-00010&" +
-			"dataformat=csv&url=http%3a%2f%2fwww.moi.gov.tw%2fopendata%2fwomen.csv";
+	public String data1 = "";
+	public String data2 = "";
+	
 	public CatchData(){
 	}
 	public void loadURLfile(String urlPath,String savePath,String fileName){
@@ -25,8 +23,9 @@ public class CatchData {
 			String name = zeroFile.getFile();
 			System.out.println("檔案 : "+name);
 			// 取得副檔名
-			String tmpName = name.substring(name.lastIndexOf("."), name.length());
-			msg = fileName+tmpName; //新取的檔名+副檔名
+	//		String tmpName = name.substring(name.lastIndexOf("."), name.length());
+//			msg = fileName+tmpName; //新取的檔名+副檔名
+			msg = fileName+".csv";
 			BufferedInputStream bs = new BufferedInputStream(zeroFile.openStream());
 			FileOutputStream fs = new FileOutputStream(savePath+"/"+msg);
 			
@@ -44,7 +43,6 @@ public class CatchData {
 	}
 	
 	public boolean TestTime(){
-
 		File file  = new File("AccidentsData.csv");
 		long d1 = file.lastModified();
 		long d2 = System.currentTimeMillis();
@@ -56,6 +54,41 @@ public class CatchData {
 		else 
 			return true;
 	}
-	
+
+/*read web, and get link*/
+	public String GetURL(){
+		int startLink;
+		String thisline = "";
+		try{
+			URL pageUrl1 = new URL("http://data.gov.tw/?q=node/6132");
+			URL pageUrl2 = new URL("http://data.gov.tw/?q=node/6247");
+			
+			BufferedReader br1 = new BufferedReader(new InputStreamReader(pageUrl1.openStream(),"UTF-8"));
+			BufferedReader br2 = new BufferedReader(new InputStreamReader(pageUrl2.openStream(),"UTF-8"));
+			System.out.println("read web is running!");
+			
+			while((thisline=br1.readLine()) != null){
+				if((startLink = thisline.indexOf("node_metadataset_full_group_data_type")) > 0){
+					int endLink = thisline.lastIndexOf("CSV");
+					String tmplink = thisline.substring(startLink, endLink);
+					String[] lArray = tmplink.split("\"");
+					data1 = lArray[8];
+				}
+			}
+			while((thisline=br2.readLine()) != null){
+				if((startLink = thisline.indexOf("node_metadataset_full_group_data_type")) > 0){
+					int endLink = thisline.lastIndexOf("CSV");
+					String tmplink = thisline.substring(startLink, endLink);
+					String[] lArray = tmplink.split("\"");
+					data2 = lArray[8];
+				}
+			}
+			
+			System.out.println("Done");
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		return data1;
+	}
 }
 

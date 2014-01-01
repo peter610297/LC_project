@@ -27,7 +27,7 @@
 		<delete dir="${build.dir}"/>
 	</target>
 	<target name="compile" depends="init">
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="on" deprecation="on" encoding="iso-8859-1">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="on" deprecation="on" encoding="UTF-8">
 			<classpath refid="class.classpath"/>
 		</javac>
 	</target>
@@ -42,7 +42,9 @@
 	</target>
 
 	<target name="run" depends="jar">
-		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true">
+			<sysproperty key="file.encoding" value="utf-8" />
+		</java>
 	</target>
 	
 	<target name="clean-build" depends="clean,jar"/>
