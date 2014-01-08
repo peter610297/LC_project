@@ -81,8 +81,10 @@ public class Sql {
 				countMatch++;
 				System.out.print(rs2.getString("place") + "\n");
 			}
-			System.out.println("There is no any result.");
-			System.out.printf("There are %d data matched !!\n",countMatch);
+			if(countMatch == 0)
+				System.out.println("There is no any result.");
+			else 
+				System.out.printf("There are %d accidents matched !!\n\n",countMatch);
 			st.close();
 			con.close();
 			

@@ -3,8 +3,8 @@
  * Document   : CsvReader.java                                         
  * Create on  : 2013 / 11 / 20                                         
  * Author     : peter610297 , MxmoParis , Neal-liu , chitsutote        
- * Description: 讀取資料夾內的csv檔，並將csv檔裡的資料全部列出，使用Design Pattern　　　　  
- *              Factory Method模式的做法，由子類別完成建立具體的 Document           
+ * Description: 霈��鞈�憭曉�sv瑼�銝血�csv瑼ㄐ����典��綽�雿輻Design Pattern������  
+ *              Factory Method璅∪���瘜��勗�憿摰�撱箇��琿���Document           
  *                                                                     
  ************************************************************************/
 
@@ -51,7 +51,7 @@ class UTF8Document extends Document{
     public void Open(String name){
     	System.out.println("---open file: "+name);
         try{
-            this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(name)),"utf-16"));
+            this.file = new CsvReader(new InputStreamReader(new FileInputStream(new File(name)),"UTF-8"));
         }	catch (IOException e) {
 				e.printStackTrace();
 			}        
@@ -66,12 +66,12 @@ class UTF8Document extends Document{
 			while (readfile.readRecord())
 			{   				
 				if(data.TestTime()){
-					String womanNum = readfile.get(0);
-	//				String womanPlace = readfile.get(1);
+					//String womanNum = readfile.get(0);
+					String womanPlace = readfile.get(1);
 					String t = Integer.toString(total);
 	//				System.out.println(womanNum);
 	//				System.out.println(womanPlace);
-					T_Sql.WomSql(t, womanNum);
+					T_Sql.WomSql(t, womanPlace);
 				}
 				total++;
 			}
@@ -178,7 +178,7 @@ public class LC {
 		MyPlace location = new MyPlace();
 		location.MyLocation();
 		
-		System.exit(0);
+		//System.exit(0);
 	}
 	
 	// unit test
