@@ -4,7 +4,12 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/javacsv.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/hung/workspace/Security_Warning3/lib/postgresql-9.3-1100.jdbc41.jar"/>
 	<classpathentry kind="lib" path="C:/Users/hung/workspace/Security_Warning3/lib/json.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/PeterLu/Documents/GitHub/LC_project/Security_Warning4/lib/json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PeterLu/Documents/GitHub/LC_project/Security_Warning4/lib/postgresql-9.3-1100.jdbc41.jar"/>
+>>>>>>> new
 	<classpathentry kind="output" path="bin"/>
 </classpath>

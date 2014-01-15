@@ -174,9 +174,16 @@ public class LC {
 		file2.doc = new ANSIDocument();
 		file2.NewDocument("AccidentsData.csv");
 		
+<<<<<<< HEAD
 		MyPlace location = new MyPlace();
 		location.MyLocation();
 		
+=======
+		//MyPlace location = new MyPlace();
+		//location.MyLocation();
+		MapView map = new MapView();
+
+>>>>>>> new
 		//System.exit(0);
 	}
 	

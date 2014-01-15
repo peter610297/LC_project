@@ -17,6 +17,7 @@ public class CatchData {
 		try{
 			String msg="";
 			int len;
+<<<<<<< HEAD
 			byte[] b = new byte[1024]; //一次取得1024個bytes
 			URL zeroFile = new URL(urlPath);
 			
@@ -25,6 +26,16 @@ public class CatchData {
 			// 取得副檔名
 	//		String tmpName = name.substring(name.lastIndexOf("."), name.length());
 //			msg = fileName+tmpName; //新取的檔名+副檔名
+=======
+			byte[] b = new byte[1024]; //銝�活��1024�ytes
+			URL zeroFile = new URL(urlPath);
+			
+			String name = zeroFile.getFile();
+			System.out.println("瑼� : "+name);
+
+	//		String tmpName = name.substring(name.lastIndexOf("."), name.length());
+//			msg = fileName+tmpName; //�啣������舀���
+>>>>>>> new
 			msg = fileName+".csv";
 			BufferedInputStream bs = new BufferedInputStream(zeroFile.openStream());
 			FileOutputStream fs = new FileOutputStream(savePath+"/"+msg);
